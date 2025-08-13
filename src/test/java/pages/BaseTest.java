@@ -15,7 +15,7 @@ import utility.BrowserFactory;
 import utility.ConfigDataProvider;
 
 public class BaseTest {
-	
+	// fetch from github test
 	public WebDriver driver;
 	public ConfigDataProvider config;
 	
