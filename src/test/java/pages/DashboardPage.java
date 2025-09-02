@@ -56,24 +56,29 @@ public class DashboardPage {
 	    // }
 
 public void dashboardClick() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
     try {
+        // Wait & click Dashboard
         wait.until(ExpectedConditions.elementToBeClickable(dashboardclick));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
+
+        // Wait for 'offerAcademeis' (instead of immediate .click())
+        wait.until(ExpectedConditions.visibilityOf(offerAcademeis));
+        wait.until(ExpectedConditions.elementToBeClickable(offerAcademeis));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", offerAcademeis);
+
+        // Scroll and click Subscribe
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
+        wait.until(ExpectedConditions.elementToBeClickable(subscribeButton));
+        subscribeButton.click();
+
     } catch (Exception e) {
-        System.out.println("Fallback JS click for dashboard: " + e.getMessage());
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
+        System.out.println("❌ Failed in dashboardClick: " + e.getMessage());
+        throw e;
     }
-
-    offerAcademeis.click();
-
-    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
-
-    wait.until(ExpectedConditions.visibilityOf(subscribeButton));
-    wait.until(ExpectedConditions.elementToBeClickable(subscribeButton));
-    subscribeButton.click();
 }
+
 
 
 }
