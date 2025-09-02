@@ -33,26 +33,47 @@ public class DashboardPage {
 	    @FindBy(xpath = "//*[@id='tab-academies']/div/div/ul/li[1]/form/div/button")
 	    WebElement subscribeButton;
 
-	    public void dashboardClick() {
-	        dashboardclick.click();
-	        offerAcademeis.click();
+	    // public void dashboardClick() {
+	    //     dashboardclick.click();
+	    //     offerAcademeis.click();
 
-	        // Scroll the subscribe button into view
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
+	    //     // Scroll the subscribe button into view
+	    //     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
 
-	        // Optional short delay for scroll animation
-	        try {
-	            Thread.sleep(500);
-	        } catch (InterruptedException e) {
-	            Thread.currentThread().interrupt();
-	        }
+	    //     // Optional short delay for scroll animation
+	    //     try {
+	    //         Thread.sleep(500);
+	    //     } catch (InterruptedException e) {
+	    //         Thread.currentThread().interrupt();
+	    //     }
 
-	        // Wait for the button to be clickable
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        wait.until(ExpectedConditions.elementToBeClickable(subscribeButton));
+	    //     // Wait for the button to be clickable
+	    //     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    //     wait.until(ExpectedConditions.elementToBeClickable(subscribeButton));
 
-	        // Click the button
-	        subscribeButton.click();
-	    }
+	    //     // Click the button
+	    //     subscribeButton.click();
+	    // }
+
+public void dashboardClick() {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+    try {
+        wait.until(ExpectedConditions.elementToBeClickable(dashboardclick));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
+    } catch (Exception e) {
+        System.out.println("Fallback JS click for dashboard: " + e.getMessage());
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
+    }
+
+    offerAcademeis.click();
+
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
+
+    wait.until(ExpectedConditions.visibilityOf(subscribeButton));
+    wait.until(ExpectedConditions.elementToBeClickable(subscribeButton));
+    subscribeButton.click();
+}
+
 
 }
