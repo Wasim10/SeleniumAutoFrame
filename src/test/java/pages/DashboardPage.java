@@ -61,18 +61,29 @@ WebElement offerAcademies;
 	    //     subscribeButton.click();
 	    // }
 
+
 public void dashboardClick() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     try {
         // Wait & click Dashboard
         wait.until(ExpectedConditions.elementToBeClickable(dashboardclick));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
 
-        // Wait for 'offerAcademeis' (instead of immediate .click())
+        // ⚡ Small pause for DOM update
+        Thread.sleep(1000);
+
+        // ✅ Check if inside iframe
+        int iframeCount = driver.findElements(By.tagName("iframe")).size();
+        if (iframeCount > 0) {
+            System.out.println("Found " + iframeCount + " iframes, switching to first one...");
+            driver.switchTo().frame(0);
+        }
+
+        // Wait & click Offer Academies
         wait.until(ExpectedConditions.visibilityOf(offerAcademies));
-    wait.until(ExpectedConditions.elementToBeClickable(offerAcademies));
-    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", offerAcademies);
+        wait.until(ExpectedConditions.elementToBeClickable(offerAcademies));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", offerAcademies);
 
         // Scroll and click Subscribe
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
@@ -82,6 +93,9 @@ public void dashboardClick() {
     } catch (Exception e) {
         System.out.println("❌ Failed in dashboardClick: " + e.getMessage());
         throw e;
+    } finally {
+        // Always return to default page
+        driver.switchTo().defaultContent();
     }
 }
 
