@@ -27,8 +27,11 @@ public class DashboardPage {
 	 @FindBy(xpath = "//*[@id='login-list']/li[1]/a")
 	    WebElement dashboardclick;
 
-	    @FindBy(xpath = "//*[@id='learn-press-user-profile']/ul/li[3]")
-	    WebElement offerAcademeis;
+	    // @FindBy(xpath = "//*[@id='learn-press-user-profile']/ul/li[3]")
+	    // WebElement offerAcademeis;
+	    // ✅ New (CSS selector for "Offer Academies" tab)
+    @FindBy(css = "li.border-radius-sm.academies_tab")
+    WebElement offerAcademies;
 
 	    @FindBy(xpath = "//*[@id='tab-academies']/div/div/ul/li[1]/form/div/button")
 	    WebElement subscribeButton;
@@ -64,9 +67,9 @@ public void dashboardClick() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
 
         // Wait for 'offerAcademeis' (instead of immediate .click())
-        wait.until(ExpectedConditions.visibilityOf(offerAcademeis));
-        wait.until(ExpectedConditions.elementToBeClickable(offerAcademeis));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", offerAcademeis);
+        wait.until(ExpectedConditions.visibilityOf(offerAcademies));
+    wait.until(ExpectedConditions.elementToBeClickable(offerAcademies));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", offerAcademies);
 
         // Scroll and click Subscribe
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", subscribeButton);
