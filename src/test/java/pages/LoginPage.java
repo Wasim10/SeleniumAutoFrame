@@ -4,6 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
 
 public class LoginPage {
 	
@@ -31,14 +37,33 @@ public class LoginPage {
 
 
 	
-	public void loginToPortal(String username, String password) {
-		// TODO Auto-generated method stub
-		loginclick.click();
-		uname.sendKeys(username);
-		pass.sendKeys(password);
-		loginButton.click();
+	// public void loginToPortal(String username, String password) {
+	// 	// TODO Auto-generated method stub
+	// 	loginclick.click();
+	// 	uname.sendKeys(username);
+	// 	pass.sendKeys(password);
+	// 	loginButton.click();
 		
-	}
+	// }
+
+	// updated one
+	public void loginToPortal(String username, String password) {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+    try {
+        // wait until login button is clickable
+        WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(loginclick));
+        loginBtn.click();
+    } catch (ElementClickInterceptedException e) {
+        // fallback: force click with JavaScript if intercepted
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginclick);
+    }
+
+    uname.sendKeys(username);
+    pass.sendKeys(password);
+    loginButton.click();
+}
+
 	
 	public void logout() {
 		logoutimage.click();
