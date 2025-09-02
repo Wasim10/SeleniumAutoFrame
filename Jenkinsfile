@@ -1,8 +1,8 @@
 pipeline {
-    agent { label 'Jenkins-Agent' } 
+    agent any 
     tools {
-        jdk 'Java17'
-        maven 'Maven3'
+        jdk 'Java17'      // must match your Jenkins tool name
+        maven 'Maven3'    // must match your Jenkins tool name
     }
     stages {
         stage("Cleanup Workspace") {
@@ -13,7 +13,9 @@ pipeline {
 
         stage("Checkout from SCM") {
             steps {
-                git branch: 'master', credentialsId: 'github', url: 'https://github.com/Wasim10/SeleniumAutoFrame'
+                git branch: 'main', 
+                    credentialsId: 'github-creds', 
+                    url: 'https://github.com/Wasim10/SeleniumAutoFrame.git'
             }
         }
 
