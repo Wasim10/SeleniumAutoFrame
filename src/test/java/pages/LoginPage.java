@@ -47,15 +47,14 @@ public class LoginPage {
 	// }
 
 	// updated one
-	public void loginToPortal(String username, String password) {
+public void loginToPortal(String username, String password) {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     try {
-        // wait until login button is clickable
-        WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(loginclick));
-        loginBtn.click();
-    } catch (ElementClickInterceptedException e) {
-        // fallback: force click with JavaScript if intercepted
+        wait.until(ExpectedConditions.elementToBeClickable(loginclick));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginclick);
+    } catch (Exception e) {
+        System.out.println("Fallback JS click for login: " + e.getMessage());
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginclick);
     }
 
@@ -63,6 +62,7 @@ public class LoginPage {
     pass.sendKeys(password);
     loginButton.click();
 }
+
 
 	
 	public void logout() {
