@@ -11,13 +11,14 @@ pipeline {
             }
         }
 
-        stage("Checkout from SCM") {
-            steps {
-                git branch: 'main', 
-                    credentialsId: 'github-creds', 
-                    url: 'https://github.com/Wasim10/SeleniumAutoFrame.git'
-            }
-        }
+stage("Checkout from SCM") {
+    steps {
+        git branch: 'main', 
+            credentialsId: 'github', 
+            url: 'https://github.com/Wasim10/SeleniumAutoFrame.git'
+    }
+}
+
 
         stage("Build Application") {
             steps {
