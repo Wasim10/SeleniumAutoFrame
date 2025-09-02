@@ -30,8 +30,11 @@ public class DashboardPage {
 	    // @FindBy(xpath = "//*[@id='learn-press-user-profile']/ul/li[3]")
 	    // WebElement offerAcademeis;
 	    // ✅ New (CSS selector for "Offer Academies" tab)
-    @FindBy(css = "li.border-radius-sm.academies_tab")
-    WebElement offerAcademies;
+    // @FindBy(css = "li.border-radius-sm.academies_tab")
+    // WebElement offerAcademies;
+
+	@FindBy(xpath = "//li[contains(@class,'academies_tab')]")
+WebElement offerAcademies;
 
 	    @FindBy(xpath = "//*[@id='tab-academies']/div/div/ul/li[1]/form/div/button")
 	    WebElement subscribeButton;
