@@ -6,11 +6,12 @@
 </listeners>
   <test thread-count="5" name="Test">
     <classes>
-    <!--  <class name="testcases.LoginTestDataDrivenTesting"/> -->
+      <class name="testcases.LoginTestDataDrivenTesting"/> 
    <!--   <class name="testcases.SearchTestCase"/>   --> 
        <!-- <class name="testcases.DashboardTestCase"/>  -->  
        
-       <class name="testcases.PaymentTestCase"/>
+   <!--    <class name="testcases.PaymentTestCase"/> -->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
+
