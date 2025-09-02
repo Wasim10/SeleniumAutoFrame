@@ -72,7 +72,12 @@ public void dashboardClick() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dashboardclick);
 
         // ⚡ Small pause for DOM update
-        Thread.sleep(1000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt(); // restore interrupt flag
+            System.out.println("Sleep interrupted: " + ie.getMessage());
+        }
 
         // ✅ Check if inside iframe
         int iframeCount = driver.findElements(By.tagName("iframe")).size();
@@ -99,6 +104,7 @@ public void dashboardClick() {
         driver.switchTo().defaultContent();
     }
 }
+
 
 
 
