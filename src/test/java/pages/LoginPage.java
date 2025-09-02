@@ -58,10 +58,19 @@ public void loginToPortal(String username, String password) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginclick);
     }
 
+    // Wait for fields to appear
+    wait.until(ExpectedConditions.visibilityOf(uname));
+    uname.clear();
     uname.sendKeys(username);
+
+    wait.until(ExpectedConditions.visibilityOf(pass));
+    pass.clear();
     pass.sendKeys(password);
+
+    wait.until(ExpectedConditions.elementToBeClickable(loginButton));
     loginButton.click();
 }
+
 
 
 	
